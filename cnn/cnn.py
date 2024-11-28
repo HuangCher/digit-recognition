@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from layer import *
+from cnn.layer import *
 
 class CNN:
     def __init__(self):
