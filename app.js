@@ -11,7 +11,7 @@ canvas.addEventListener('mousedown', start);
 canvas.addEventListener('mousemove', draw);
 canvas.addEventListener('mouseup', stop);
 
-document.getElementById('clearButton').addEventListener('click', clearCanvas);
+document.getElementById('clearButton').addEventListener('click', clear);
 document.getElementById('processButton').addEventListener('click', processDrawing);
 
 function start(e) {
@@ -36,9 +36,11 @@ function stop() {
     drawing = false;
 }
 
-function clearCanvas() {
+function clear() {
     context.fillStyle = 'black';
     context.fillRect(0, 0, canvas.width, canvas.height);
+    document.getElementById('cnnPrediction').innerHTML = '-';
+
 }
 
 
