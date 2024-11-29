@@ -106,10 +106,12 @@ function sendData(pixelData) {
             // ]
         })
     })
+
     .then(response => response.json())
     .then(result => {
         //make sure to change the alert to text on the page
-        alert('Prediction: ' + result.prediction);
+        document.getElementById('cnnPrediction').innerHTML = result.prediction;
+        //add the mlp prediction here....
     })
     .catch(error => {
         console.error('Error:', error);

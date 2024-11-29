@@ -28,7 +28,7 @@ def predict():
     #convert pixels to numpy array
     print(pixels)
     pixelsArr = np.array(pixels)
-    pixelsArr = np.rot90(pixelsArr, k=1)
+    pixelsArr = np.flip(pixelsArr, axis=0)
     pixelsArr = pixelsArr[np.newaxis, :, :]
 
     cnn = CNN()
