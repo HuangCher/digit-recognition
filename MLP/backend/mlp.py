@@ -50,8 +50,6 @@ def forwardPropagate(layers, input):
     for row in input:
         for pixel in row:
             temp.append([pixel])
-    for pixel in temp:
-        pixel[0] = float(pixel[0]) / 255.0
     input = np.array(temp)
     
     # propagate

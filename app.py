@@ -7,7 +7,7 @@ from flask import Flask, request, jsonify
 import numpy as np
 import pickle
 from cnn.cnn import *
-from MLP.backend.mlp import *
+from mlp.backend.mlp import *
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -29,9 +29,11 @@ def predict():
     
     #convert pixels to numpy array for CNN
     print(pixels)
-    pixelsArr = np.array(pixels)
-    pixelsArr = np.flip(pixelsArr, axis=0)
-    pixelsArr = pixelsArr[np.newaxis, :, :]
+    cnnPixelsArr = np.array(pixels)
+    mlpPixelsArr = np.array(pixels)
+
+    cnnPixelsArr = np.flip(cnnPixelsArr, axis=0)
+    cnnPixelsArr = cnnPixelsArr[np.newaxis, :, :]
 
     cnn = CNN()
 
@@ -50,23 +52,14 @@ def predict():
         print("weights file not found.")
 
     #predicts for cnn
-    output = cnn.forward(pixelsArr)
-    predictionCNN = int(np.argmax(output))
+    cnnOutput = cnn.forward(cnnPixelsArr)
+    predictionCNN = int(np.argmax(cnnOutput))
 
     #load MLP weights
     layerList = readLayersFromFile("MLP/backend/layers.txt")
-    
-    #flips the pixels array before sending it to the MLP model
-    pixelsArr = np.flip(pixelsArr, axis=0)
-    # dont change these (they are necessary for the model to read in the pixel data)
-    # pixelsArr = pixelsArr * 255.0
-    pixelsArr = 1.0 - pixelsArr
-    pixelsArr = pixelsArr.flatten()
-    pixelsArr = pixelsArr.reshape((784, 1))
 
-    #predicts for mlp
-    output = forwardPropagate(layerList, pixelsArr)
-    predictionMLP = getResult(output)
+    mlpOutput = forwardPropagate(layerList, mlpPixelsArr)
+    predictionMLP = getResult(mlpOutput)
 
     return jsonify({'predictionCNN': predictionCNN, 'predictionMLP': predictionMLP})
 

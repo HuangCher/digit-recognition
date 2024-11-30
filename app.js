@@ -64,16 +64,8 @@ function processDrawing() {
             let blue = data[offset + 2];
             let alpha = data[offset + 3];
 
-            if (alpha > 0) {
-                let rgb = 0.299 * red + 0.587 * green + 0.114 * blue;
-                if (rgb < 128) {
-                    row.push(0);
-                } else {  
-                    row.push(1);
-                }
-            } else {
-                row.push(0); 
-            }
+            let normalized = (red + green + blue) / 3.0 / 255.0;
+            row.push(normalized);
         }
         pixels.push(row);
     }
