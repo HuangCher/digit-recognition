@@ -1,0 +1,6 @@
+Note: the trained layers are already in training/layers.txt so compiling this is not actually necessary unless you want to alter parameters and retrain the model
+
+1. Retrieve the dataset from https://www.nist.gov/itl/products-and-services/emnist-dataset, decompress the data, and place the relevant training and testing sets in images (i.e. "images/emnist-digits-train-images-idx3-ubyte"). I did not include this data in the repository because it is too large.
+2. Configure the MLP in main as needed.
+3. Install the Eigen library and compile all files from the training folder. The executable should be created directly in the MLP folder.
+4. Run the executable. It should write the layers to backend/layers.txt. The written layers can be used from mlp.py.
