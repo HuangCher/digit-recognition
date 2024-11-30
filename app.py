@@ -7,11 +7,13 @@ from flask import Flask, request, jsonify
 import numpy as np
 import pickle
 from cnn.cnn import *
+from MLP.backend.mlp import *
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
 
+# route to check if the server is running (ignore)
 @app.route('/')
 def home():
     return 'Flask server is running.'
@@ -25,7 +27,7 @@ def predict():
     if pixels is None:
         return jsonify({'error': 'No drawing provided.'}), 400
     
-    #convert pixels to numpy array
+    #convert pixels to numpy array for CNN
     print(pixels)
     pixelsArr = np.array(pixels)
     pixelsArr = np.flip(pixelsArr, axis=0)
@@ -47,10 +49,26 @@ def predict():
     except FileNotFoundError:
         print("weights file not found.")
 
+    #predicts for cnn
     output = cnn.forward(pixelsArr)
-    prediction = int(np.argmax(output))
+    predictionCNN = int(np.argmax(output))
 
-    return jsonify({'prediction': prediction})
+    #load MLP weights
+    layerList = readLayersFromFile("MLP/backend/layers.txt")
+    
+    #flips the pixels array before sending it to the MLP model
+    pixelsArr = np.flip(pixelsArr, axis=0)
+    # dont change these (they are necessary for the model to read in the pixel data)
+    # pixelsArr = pixelsArr * 255.0
+    pixelsArr = 1.0 - pixelsArr
+    pixelsArr = pixelsArr.flatten()
+    pixelsArr = pixelsArr.reshape((784, 1))
+
+    #predicts for mlp
+    output = forwardPropagate(layerList, pixelsArr)
+    predictionMLP = getResult(output)
+
+    return jsonify({'predictionCNN': predictionCNN, 'predictionMLP': predictionMLP})
 
 if __name__ == '__main__':
     app.run(debug=True)
