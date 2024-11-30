@@ -107,5 +107,5 @@ sample = np.array([
 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ])
 
-layerList = readLayersFromFile("layers.txt")
+layerList = readLayersFromFile("MLP/backend/layers.txt")
 print(getResult(forwardPropagate(layerList, sample)))

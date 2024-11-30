@@ -40,7 +40,7 @@ function clear() {
     context.fillStyle = 'black';
     context.fillRect(0, 0, canvas.width, canvas.height);
     document.getElementById('cnnPrediction').innerHTML = '-';
-
+    document.getElementById('mlpPrediction').innerHTML = '-';
 }
 
 
@@ -66,7 +66,11 @@ function processDrawing() {
 
             if (alpha > 0) {
                 let rgb = 0.299 * red + 0.587 * green + 0.114 * blue;
-                row.push(rgb < 128 ? 0 : 1); 
+                if (rgb < 128) {
+                    row.push(0);
+                } else {  
+                    row.push(1);
+                }
             } else {
                 row.push(0); 
             }
@@ -111,9 +115,8 @@ function sendData(pixelData) {
 
     .then(response => response.json())
     .then(result => {
-        //make sure to change the alert to text on the page
-        document.getElementById('cnnPrediction').innerHTML = result.prediction;
-        //add the mlp prediction here....
+        document.getElementById('cnnPrediction').innerHTML = result.predictionCNN;
+        document.getElementById('mlpPrediction').innerHTML = result.predictionMLP;
     })
     .catch(error => {
         console.error('Error:', error);
