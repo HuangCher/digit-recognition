@@ -1,6 +1,9 @@
 install live server extension in vs code
-install flask w/ pip install flask 
+
+install flask w/ pip install flask
+
 install numpy w/ pip install numpy
+
 install flask-cors w/ pip install flask-cors
 
 run app.py in a vs code terminal and then open app.html to use the app
