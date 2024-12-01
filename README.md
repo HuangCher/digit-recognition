@@ -8,4 +8,4 @@ install flask-cors w/ pip install flask-cors
 
 run app.py in a vs code terminal and then open app.html using live server to use the app
 
-Note: further instructions for compiling the MLP training program are in the MLP folder, but are not necessary to run the app since the trained data has been saved to MLP/backend/layers.txt
+Note: further instructions for compiling the MLP and CNN training programs can be found in their respective folders, but are not necessary to run the app since the trained data has been saved to MLP/backend/layers.txt and cnn/weights.pkl respectively.

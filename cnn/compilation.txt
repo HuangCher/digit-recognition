@@ -1,0 +1,6 @@
+Note: the trained weights are already in the "weights.pkl" file so retraining the model is not actually necessary unless you want to optimize accuracy further or train on different data (only letters / letters and digits)
+
+1. Retrieve dataset from https://www.nist.gov/itl/products-and-services/emnist-dataset, unzip the necessary testing and training files, and place them in a folder called data (i.e. 'data/train_images'). I could not include this data in the repository because it is too large.
+2. Change any settings in the main.py file as needed (subsample size, # of epochs, learning rate, batch size, etc.)
+3. Install the NumPy library with "pip install numpy".
+4. Run the main.py file. New weights will be written to the "weights.pkl" file. This can then be used to preload the model for future inputs.
