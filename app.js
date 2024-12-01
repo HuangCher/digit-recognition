@@ -76,7 +76,7 @@ function processDrawing() {
 
 
 function sendData(pixelData) {
-    fetch('http://127.0.0.1:5000/predict', { //if the code is not working, you might need to change this url
+    fetch('http://127.0.0.1:5000/predict', {
     //run python app.py
         method: 'POST',
         headers: {
